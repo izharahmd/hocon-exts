@@ -1,0 +1,19 @@
+*.class
+*.log
+
+# SBT Ignore Rules
+.cache
+.history
+.lib/
+.bsp
+target/
+
+# IntelliJ IDE Specific Ignore Rules
+.idea/
+
+# Scala IDE Specific Ignore Rules
+*.scala_dependencies
+*.worksheet
+
+# Mac OSX Specific
+*.DS_Store
