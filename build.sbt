@@ -6,7 +6,7 @@ ThisBuild / organization     := "io.github.izharahmd"
 lazy val root = (project in file("."))
   .settings(
     name := "hocon-exts",
-    exportJars := true,
+    testFrameworks += new TestFramework("munit.Framework"),
     libraryDependencies ++= Seq(
       "com.typesafe" % "config" % "1.4.0",
       "org.scalameta" %% "munit" % "0.7.12" % Test

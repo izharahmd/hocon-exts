@@ -64,12 +64,12 @@ object Extensions {
       getConfigValueOption[Double](path, config.getDouble)
     }
 
-    @inline def getIntOption(path: String): Option[Integer] = {
-      getConfigValueOption[Integer](path, config.getInt)
+    @inline def getIntOption(path: String): Option[Int] = {
+      getConfigValueOption[Int](path, config.getInt)
     }
 
-    @inline def getIntListOption(path: String): Option[List[Integer]] = {
-      getConfigValueOption[List[Integer]](path, config.getIntList(_).asScala.toList)
+    @inline def getIntListOption(path: String): Option[List[Int]] = {
+      getConfigValueOption[List[Int]](path, config.getIntList(_).asScala.map(_.toInt).toList)
     }
 
     @inline def getLongOption(path: String): Option[Long] = {
