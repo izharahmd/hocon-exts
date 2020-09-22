@@ -3,7 +3,7 @@ package io.github.izharahmd.hoconexts
 import com.typesafe.config.ConfigFactory
 
 class ExtensionsTest extends munit.FunSuite {
-  import  io.github.izharahmd.hoconexts.Extensions._
+  import io.github.izharahmd.hoconexts.Extensions._
 
   test("String to Config") {
     val actualString = "{a: b}"
