@@ -1,7 +1,6 @@
 name: Release
 on:
   push:
-    branches: [feat/cd-test]
     tags: ["*"]
 jobs:
   publish:
