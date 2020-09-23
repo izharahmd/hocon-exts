@@ -1,6 +1,6 @@
 package io.github.izharahmd.hoconexts
 
-import scala.jdk.CollectionConverters._
+import scala.collection.JavaConverters._
 
 import com.typesafe.config.{Config, ConfigFactory}
 
