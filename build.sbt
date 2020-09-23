@@ -21,6 +21,7 @@ inThisBuild(
 lazy val root = (project in file("."))
   .settings(
     name := "hocon-exts",
+    crossScalaVersions := List("2.13.3", "2.12.10", "2.11.12"),
     testFrameworks += new TestFramework("munit.Framework"),
     libraryDependencies ++= Seq(
       "com.typesafe" % "config" % "1.4.0",
