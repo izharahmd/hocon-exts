@@ -1,5 +1,8 @@
 package io.github.izharahmd.hoconexts
 
+import java.io.File
+
+// deprecated imports used for cross building scala 2.12 and older
 import scala.collection.JavaConverters._
 
 import com.typesafe.config.{Config, ConfigFactory}
@@ -85,5 +88,15 @@ object Extensions {
     @inline def getLongOption(path: String): Option[Long] = {
       getConfigValueOption[Long](path, config.getLong)
     }
+  }
+
+  /** Extension for java.io.File */
+  implicit class FileExt(val file: File) extends AnyVal {
+    @inline def toConfig: Config = ConfigFactory.parseFile(file)
+  }
+
+  /** Extension for Scala Map. Supports both immutable and mutable maps. */
+  implicit class MapExt(val mp: collection.Map[String, _]) extends AnyVal {
+    @inline def toConfig: Config = ConfigFactory.parseMap(mp.asJava)
   }
 }

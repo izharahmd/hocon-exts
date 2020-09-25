@@ -1,6 +1,6 @@
 package io.github.izharahmd.hoconexts
 
-import com.typesafe.config.ConfigFactory
+import com.typesafe.config.{Config, ConfigFactory}
 
 class ExtensionsTest extends munit.FunSuite {
   import io.github.izharahmd.hoconexts.Extensions._
@@ -94,5 +94,43 @@ class ExtensionsTest extends munit.FunSuite {
     val actualAnyRef = actualConfig.getAnyRefOption("a")
     val expectedAnyRef = Some(10)
     assert(actualAnyRef == expectedAnyRef)
+  }
+
+  test("Read java file as config") {
+    val file = new java.io.File(getClass.getResource("/test.conf").toURI)
+    val actualFileAsConfig = file.toConfig
+    // assuming toConfig on strings works
+    val expectedConfig = """ {"k": "42"} """.toConfig
+    assertEquals(actualFileAsConfig, expectedConfig)
+  }
+
+  test("Read java file as config negative test") {
+    val file = new java.io.File(getClass.getResource("/test.conf").toURI)
+    val actualFileAsConfig = file.toConfig
+    // assuming toConfig on strings works
+    val expectedConfig = """ {"k": "43"} """.toConfig
+    assertNotEquals(actualFileAsConfig, expectedConfig)
+  }
+
+  test("Parse scala Map as config") {
+    val config: Config = Map("abc" -> "1", "a" -> "2").toConfig
+    val expectedConfig = """ {"abc": "1", "a": "2"} """.toConfig
+    assertEquals(config, expectedConfig)
+  }
+
+  test("Parse mutable scala Map as config") {
+    val mp = collection.mutable.Map("x" -> "y")
+    mp += ("p" -> "p")
+    val actualConfig: Config = mp.toConfig
+    val expectedConfig = """ {"x": "y", "p": "p"} """.toConfig
+    assertEquals(actualConfig, expectedConfig)
+  }
+
+  test("Parse scala Map with ConfigValue as config") {
+    val internalConfig: Config = """ {"x": 1}""".toConfig
+    val mp = Map("abc" -> "1", "inner" -> internalConfig.root())
+    val actualConfig: Config = mp.toConfig
+    val expectedConfig = """ {"abc": "1", "inner": {"x": 1}} """.toConfig
+    assertEquals(actualConfig, expectedConfig)
   }
 }
