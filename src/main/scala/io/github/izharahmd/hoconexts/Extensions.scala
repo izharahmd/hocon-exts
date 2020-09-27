@@ -5,7 +5,7 @@ import java.io.File
 // deprecated imports used for cross building scala 2.12 and older
 import scala.collection.JavaConverters._
 
-import com.typesafe.config.{Config, ConfigFactory}
+import com.typesafe.config.{Config, ConfigFactory, ConfigValue}
 
 object Extensions {
 
@@ -88,6 +88,17 @@ object Extensions {
     @inline def getLongOption(path: String): Option[Long] = {
       getConfigValueOption[Long](path, config.getLong)
     }
+
+    @inline def rootSet: Map[String, ConfigValue] = {
+      config.root().entrySet().asScala.map(e => (e.getKey, e.getValue)).toMap
+    }
+
+    @inline def keySet: Set[String] = rootSet.keySet
+
+    @inline def keys: Iterable[String] = rootSet.keys
+
+    @inline def paths: Set[String] =
+      config.entrySet().asScala.map(_.getKey).toSet
   }
 
   /** Extension for java.io.File */

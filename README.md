@@ -8,7 +8,7 @@ Scala extensions for HOCON.
 
 ### Getting started
 ```scala
-libraryDependencies += "io.github.izharahmed" %% "hocon-exts" % "0.0.1-RC"
+libraryDependencies += "io.github.izharahmed" %% "hocon-exts" % "0.1.0"
 ```
 
 ### Usage

@@ -133,4 +133,33 @@ class ExtensionsTest extends munit.FunSuite {
     val expectedConfig = """ {"abc": "1", "inner": {"x": 1}} """.toConfig
     assertEquals(actualConfig, expectedConfig)
   }
+
+  test("Get keySet from config") {
+    val config: Config = Map("abc" -> "1", "a" -> "2").toConfig
+    val actualKeySet = config.keySet
+    val expectedKeySet = Set("abc", "a")
+    assertEquals(actualKeySet, expectedKeySet)
+  }
+
+  test("Get keys from Config") {
+    val config: Config = Map("abc" -> "1", "a" -> "2").toConfig
+    val actualKeys = config.keys
+    val expectedKeys = Set("abc", "a")
+    assertEquals(actualKeys, expectedKeys)
+  }
+
+  test("Get paths from Config") {
+    val config: Config =
+      """ {
+        |"abc": "1",
+        |"a": "2",
+        |"c": {
+        |        "d": {"f": 1},
+        |        "e": 2
+        |     }
+        | } """.stripMargin.toConfig
+    val actualPaths = config.paths
+    val expectedPaths = Set("abc", "a", "c.e", "c.d.f")
+    assertEquals(actualPaths, expectedPaths)
+  }
 }
